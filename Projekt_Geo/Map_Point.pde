@@ -42,11 +42,34 @@ class Map_Point {
       point(x,y);
       float h=reds+100;
       int radius = int(diam2);
+      
+      //strokeWeight(diam2);
+      fill(reds*3, 100,159-reds);
+      ellipse(x, y, radius, radius);
+
+      /*
       for (int r = radius; r > 0; --r) {
-        fill(h*2,100, 159);
+        fill(h*4,100, 159-0.5*h);
         ellipse(x, y, r, r);
         h = (h - 25) % (reds+100);
       }
+      */
+      //int radius = 150;
+      //float h = random(0, 360);
+      /*
+      for (int r = radius; r > 0; --r) {
+        fill(h,90, 90-h, 100);
+        ellipse(x, y, r, r);
+        h = (h + 1) % 256;
+  }
+      */
+      
+      /*
+      for (int i=radius; i>0; i--){
+        noStroke();
+        fill(250-i*3,250-i*3,0);
+        ellipse(x, y, i, i);
+}*/
   }
       //ellipse(x, y, diameter, diameter);
  }

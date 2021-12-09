@@ -2,7 +2,6 @@
 Ring[] rings;
 Map_Point[] points;
 import java.util.Collections;
-
 ArrayList<String> Countries_List  = new ArrayList<String>();
 ArrayList<Float> Longit_List  = new ArrayList<Float>();
 ArrayList<Float> Latit_list  = new ArrayList<Float>();
@@ -11,10 +10,12 @@ ArrayList<Float> Beer  = new ArrayList<Float>();
 ArrayList<Float> Wine  = new ArrayList<Float>();
 ArrayList<Float> Spirit  = new ArrayList<Float>();
 ArrayList<Float>Anylsed_quantity = Pure_alc;
-
+ArrayList<Float> Area  = new ArrayList<Float>();
+color c1 = color(204, 102, 0);
+color c2 = color(0, 102, 153);  
 Table tabela;
 
-                         
+                       
 //float mapScreenWidth,mapScreenHeight;  // Dimension of map in pixels.
 int iterator =-1;
 //PVector[] points;
@@ -24,20 +25,24 @@ int rate_of_frames = 30;
 
 void setup() {
   //size(600,400);
+  //colorMode(HSB,100,100,100);
+
   //colorMode(HSB, 720, 100, 100);
-  background(0,0,720);
+  background(0,0,0);
   fullScreen();
   tabela = loadTable("country-capitals.csv", "header");
   println(tabela.getRowCount() + " total rows in table");
   for (TableRow row : tabela.rows()) {
     String kol1 = row.getString("CountryName"); //CountryName,CapitalName,CapitalLatitude,CapitalLongitude,CountryCode,ContinentName
-    float kol2 = row.getFloat("CapitalLatitude");
-    float kol3 = row.getFloat("CapitalLongitude");
+    float kol2 = row.getFloat("latitude");
+    float kol3 = row.getFloat("longitude");
     float kol4 = row.getFloat("total_litres_of_pure_alcohol");
     float kol5 = row.getFloat("beer_servings");
     float kol6 = row.getFloat("wine_servings");
     float kol7 = row.getFloat("spirit_servings");
+    float kol8 = row.getFloat("Area");
 
+    Area.add(kol8);
     Countries_List.add(kol1);
     Latit_list.add(kol2);
     Longit_List.add(kol3);
@@ -139,15 +144,25 @@ void draw()
   iterator2++;
   println();
   println(frameRate);
+
+  for (int i = 0; i <= 0+200; i++) {
+    float inter = map(i, 0, 0+200, 0, 1);
+    color c = lerpColor(c1, c2, inter);
+    stroke(c);
+    line(0, i, 0+50, i);
+  }
+
   if (iterator == Pure_alc.size()-1){
     iterator= Pure_alc.size()-1;
+
     Draw_Circles(Anylsed_quantity,iterator);
 
   }
   else if (iterator == int(1.5*(Pure_alc.size()-1))){
-      noLoop();
+      //noLoop();
   }
   else if (iterator2%(int(frameRate/6)) ==0){
+
    iterator++ ;
    Draw_Circles(Anylsed_quantity,iterator);
   }
@@ -158,26 +173,42 @@ void draw()
   println();
   print( rings.length);
   for (int i = 0; i < rings.length; i++) {
-    //PVector p  = points[i];
-    //strokeWeight(2+(normalize_value(Anylsed_quantity).get(iterator)*10));
-    //stroke(color(normaize_color(Anylsed_quantity).get(iterator)[0],normaize_color(Anylsed_quantity).get(iterator)[1],normaize_color(Anylsed_quantity).get(iterator)[2]));
-    //point(p.x,p.y);
+
     rings[i].grow();
     rings[i].display();
     points[i].grow();
     points[i].display();
   }
+       int kol1 = int(map(Collections.max(Anylsed_quantity),0,Collections.max(Anylsed_quantity),0,360));
+       int kol2 = int(map(Collections.min(Anylsed_quantity),0,Collections.max(Anylsed_quantity),0,360));
+
+       setGradient(int(width - 25 -15), int(height - 200 -25), 25, 200, color(kol1*2,100,159-kol1), color(kol2*2,100,159-kol2));
+
 }
+
+void setGradient(int x, int y, float w, float h, color c1, color c2 ) {
+  //noFill();
+
+
+  for (int i = y; i <= y+h; i++) {
+    float inter = map(i, y, y+h, 0, 1);
+    color c = lerpColor(c1, c2, inter);
+    stroke(c);
+    line(x, i, x+w, i);
+    
+  }  
+}
+
 void Draw_Circles(ArrayList<Float> out, int iterator){
   Anylsed_quantity = out;
 
   //strokeWeight(map(Anylsed_quantity.get(iterator),0,Collections.max(Anylsed_quantity),0,20));//2+(normalize_value(Anylsed_quantity).get(iterator)*10));
   //stroke(color(map(Anylsed_quantity.get(iterator),0,Collections.max(Anylsed_quantity),0,256),0,0));//color(normaize_color(Anylsed_quantity).get(iterator)[0],normaize_color(Anylsed_quantity).get(iterator)[1],normaize_color(Anylsed_quantity).get(iterator)[2]));
   PVector p = geoToPixel(new PVector(Longit_List.get(iterator),Latit_list.get(iterator))); 
-  Float stroke = 10+ map(Anylsed_quantity.get(iterator),0,Collections.max(Anylsed_quantity),0,20);
-  int kol[] = {int(map(Anylsed_quantity.get(iterator),0,Collections.max(Anylsed_quantity),0,720)),0,0};
+  Float stroke = 10+ map(Area.get(iterator),0,Collections.max(Area),0,40);//map(Anylsed_quantity.get(iterator),0,Collections.max(Anylsed_quantity),0,20);
+  int kol[] = {int(map(Anylsed_quantity.get(iterator),0,Collections.max(Anylsed_quantity),0,360)),0,0};
   points[iterator].start(p.x,p.y,stroke,kol);
-  rings[iterator].start(p.x,p.y,stroke,kol,150);
+  //rings[iterator].start(p.x,p.y,stroke,kol,150);
 }
 
 // Converts screen coordinates into geographical coordinates. 

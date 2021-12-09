@@ -44,7 +44,7 @@ class Map_Point {
       int radius = int(diam2);
       
       //strokeWeight(diam2);
-      fill(reds*3, 100,159-reds);
+      fill(reds*3,159-reds,0);
       ellipse(x, y, radius, radius);
 
       /*

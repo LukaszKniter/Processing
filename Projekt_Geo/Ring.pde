@@ -45,7 +45,7 @@ class Ring {
       strokeWeight(2);
       if (transparency > 0) { transparency -= 1; }
       float h = reds;
-      stroke(h*2,100,159-h, transparency); ellipse(x, y, diameter, diameter);
+      stroke(h*2,159-h,0, transparency); ellipse(x, y, diameter, diameter);
       ellipse(x, y, diameter*0.75, diameter*0.75);
       ellipse(x, y, diameter*0.5, diameter*0.5);
 

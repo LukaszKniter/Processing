@@ -173,7 +173,10 @@ void draw()
   println();
   print( rings.length);
   for (int i = 0; i < rings.length; i++) {
-
+    //PVector p  = points[i];
+    //strokeWeight(2+(normalize_value(Anylsed_quantity).get(iterator)*10));
+    //stroke(color(normaize_color(Anylsed_quantity).get(iterator)[0],normaize_color(Anylsed_quantity).get(iterator)[1],normaize_color(Anylsed_quantity).get(iterator)[2]));
+    //point(p.x,p.y);
     rings[i].grow();
     rings[i].display();
     points[i].grow();
@@ -182,7 +185,7 @@ void draw()
        int kol1 = int(map(Collections.max(Anylsed_quantity),0,Collections.max(Anylsed_quantity),0,360));
        int kol2 = int(map(Collections.min(Anylsed_quantity),0,Collections.max(Anylsed_quantity),0,360));
 
-       setGradient(int(width - 25 -15), int(height - 200 -25), 25, 200, color(kol1*2,100,159-kol1), color(kol2*2,100,159-kol2));
+       setGradient(int(width - 25 -15), int(height - 200 -25), 25, 200, color(kol1*2,159-kol1,0), color(kol2*2,159-kol2,0));
 
 }
 
@@ -208,7 +211,7 @@ void Draw_Circles(ArrayList<Float> out, int iterator){
   Float stroke = 10+ map(Area.get(iterator),0,Collections.max(Area),0,40);//map(Anylsed_quantity.get(iterator),0,Collections.max(Anylsed_quantity),0,20);
   int kol[] = {int(map(Anylsed_quantity.get(iterator),0,Collections.max(Anylsed_quantity),0,360)),0,0};
   points[iterator].start(p.x,p.y,stroke,kol);
-  //rings[iterator].start(p.x,p.y,stroke,kol,150);
+  rings[iterator].start(p.x,p.y,stroke,kol,150);
 }
 
 // Converts screen coordinates into geographical coordinates. 

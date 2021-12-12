@@ -19,8 +19,9 @@ float y_pos;
 PFont roboto;
 
 PImage img_w;
-
-
+PImage img_b;
+PImage img_v;
+PImage img_p;
 
 //float mapScreenWidth,mapScreenHeight;  // Dimension of map in pixels.
 int iterator =-1;
@@ -34,6 +35,9 @@ void setup() {
   background(0, 0, 0);
   fullScreen();
   img_w = loadImage("wine.png");
+  img_b = loadImage("beer.png");
+  img_v = loadImage("vodka.png");
+  img_p = loadImage("pure.png");
   tabela = loadTable("country-capitals.csv", "header");
   println(tabela.getRowCount() + " total rows in table");
   for (TableRow row : tabela.rows()) {
@@ -64,21 +68,66 @@ void setup() {
   frameRate(rate_of_frames);
 }
 
-void react_w(int x, int y, int s, int h){
+void react_w(int x, int y, int s, int h){    //s-szer obrazka, h - wys obrazka
   if(mousePressed && mouseX >= x && mouseY >= y && mouseX <= x+s && mouseY <= y+h){
-    if (iterator == Pure_alc.size()-1) {
-    iterator= Pure_alc.size()-1;
-
+    if (iterator == Wine.size()-1) {
+    iterator= Wine.size()-1;
     Draw_Circles(Anylsed_quantity, iterator);
-  } else if (iterator == int(1.5*(Pure_alc.size()-1))) {
-    //noLoop();
-  } else if (iterator2%(int(frameRate/6)) ==0) {
-
+  } 
+  else if (iterator == int(1.5*(Wine.size()-1))) {
+  } 
+  else if (iterator2%(int(frameRate/6)) ==0) {
     iterator++ ;
     Draw_Circles(Anylsed_quantity, iterator);
   }
   Anylsed_quantity = Wine; }  
 }
+
+void react_b(int x, int y, int s, int h){    //s-szer obrazka, h - wys obrazka
+  if(mousePressed && mouseX >= x && mouseY >= y && mouseX <= x+s && mouseY <= y+h){
+    if (iterator == Wine.size()-1) {
+    iterator= Wine.size()-1;
+    Draw_Circles(Anylsed_quantity, iterator);
+  } 
+  else if (iterator == int(1.5*(Wine.size()-1))) {
+  } 
+  else if (iterator2%(int(frameRate/6)) ==0) {
+    iterator++ ;
+    Draw_Circles(Anylsed_quantity, iterator);
+  }
+  Anylsed_quantity = Beer; }  
+}
+
+void react_v(int x, int y, int s, int h){    //s-szer obrazka, h - wys obrazka
+  if(mousePressed && mouseX >= x && mouseY >= y && mouseX <= x+s && mouseY <= y+h){
+    if (iterator == Wine.size()-1) {
+    iterator= Wine.size()-1;
+    Draw_Circles(Anylsed_quantity, iterator);
+  } 
+  else if (iterator == int(1.5*(Wine.size()-1))) {
+  } 
+  else if (iterator2%(int(frameRate/6)) ==0) {
+    iterator++ ;
+    Draw_Circles(Anylsed_quantity, iterator);
+  }
+  Anylsed_quantity = Spirit; }  
+}
+
+void react_p(int x, int y, int s, int h){    //s-szer obrazka, h - wys obrazka
+  if(mousePressed && mouseX >= x && mouseY >= y && mouseX <= x+s && mouseY <= y+h){
+    if (iterator == Wine.size()-1) {
+    iterator= Wine.size()-1;
+    Draw_Circles(Anylsed_quantity, iterator);
+  } 
+  else if (iterator == int(1.5*(Wine.size()-1))) {
+  } 
+  else if (iterator2%(int(frameRate/6)) ==0) {
+    iterator++ ;
+    Draw_Circles(Anylsed_quantity, iterator);
+  }
+  Anylsed_quantity = Pure_alc; }  
+}
+
 /*void keyPressed() {
   background(0, 0, 0);
   iterator =0;
@@ -100,6 +149,15 @@ void react_w(int x, int y, int s, int h){
 void button_w(int x, int y) {
   image(img_w, x, y);
 }
+void button_b(int x, int y) {
+  image(img_b, x, y);
+}
+void button_v(int x, int y) {
+  image(img_v, x, y);
+}
+void button_p(int x, int y) {
+  image(img_p, x, y);
+}
 
 void draw() {
   iterator2++;
@@ -113,13 +171,16 @@ void draw() {
     line(0, i, 0+50, i);
   }
 
-  
-
-
-
   background(0, 0, 0);
-  button_w(width-200,20);
-  react_w(width-200,20,27,40);
+  button_w(width-50,20);
+  react_w(width-50,20,27,40);  //27-szer obrazka w pix, 40-wys obrazka w pix
+  button_b(width-100,20);
+  react_b(width-100,20,27,40);
+  button_v(width-150,20);
+  react_v(width-150,20,27,40);
+  button_p(width-200,20);
+  react_p(width-200,20,27,40);
+  
   println();
   print( rings.length);
   for (int i = 0; i < rings.length; i++) {

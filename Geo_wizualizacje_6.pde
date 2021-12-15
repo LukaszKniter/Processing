@@ -17,6 +17,8 @@ Table tabela;
 int timer=0;
 float y_pos;
 PFont roboto;
+int choose_data = 7;
+
 
 int x_w = width-50; //umiejscowienie przycisku
 int y = 20;
@@ -81,6 +83,7 @@ void setup() {
 void mouseClicked() {
   if (mouseX >= width-50 && mouseY >= 20 && mouseX <= (width-50+27) && mouseY <= (20+40)) {
     Anylsed_quantity = Wine;
+    choose_data = 6;
     background(0, 0, 0);
     iterator =0;
     for (int i = 0; i < rings.length; i++) {
@@ -90,6 +93,7 @@ void mouseClicked() {
   }
   if (mouseX >= width-100 && mouseY >= 20 && mouseX <= (width-100+27) && mouseY <= (20+40)) {
     Anylsed_quantity = Beer;
+    choose_data = 4;
     background(0, 0, 0);
     iterator =0;
     for (int i = 0; i < rings.length; i++) {
@@ -99,6 +103,7 @@ void mouseClicked() {
   }
   if (mouseX >= width-150 && mouseY >= 20 && mouseX <= (width-150+27) && mouseY <= (20+40)) {
     Anylsed_quantity = Spirit;
+    choose_data = 5;
     background(0, 0, 0);
     iterator =0;
     for (int i = 0; i < rings.length; i++) {
@@ -108,6 +113,7 @@ void mouseClicked() {
   }
   if (mouseX >= width-200 && mouseY >= 20 && mouseX <= (width-200+27) && mouseY <= (20+40)) {
     Anylsed_quantity = Pure_alc;
+    choose_data = 7;
     background(0, 0, 0);
     iterator =0;
     for (int i = 0; i < rings.length; i++) {
@@ -227,7 +233,7 @@ void write_table () {
       if (y_pos < height-40) {
         fill(140, 0, 0);
         textFont(roboto);
-        text(tabela.getString(i, 0)+"  "+tabela.getString(i, 7), 20, y_pos=y_pos+16);
+        text(tabela.getString(i, 0)+"  "+tabela.getString(i, choose_data), 20, y_pos=y_pos+16);
       } else {
         fill(0, 0, 0);
         noStroke();
